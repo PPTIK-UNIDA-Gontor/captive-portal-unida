@@ -36,6 +36,7 @@ def login():
     return redirect(authUrl)
 
 
+@app.route("/auth/callback")
 def callback():
     # Auth Code dari SSO Callback
     authCode = request.args.get("code")
