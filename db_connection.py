@@ -9,7 +9,7 @@ DB_HOST: str = os.getenv("DB_HOST")
 DB_PORT: str = os.getenv("DB_PORT")
 DB_USERNAME: str = os.getenv("DB_USERNAME")
 DB_PASSWORD: str = os.getenv("DB_PASSWORD")
-DB_DATABASE: str = os.getenv("DB_NAME")
+DB_DATABASE: str = os.getenv("DB_DATABASE")
 
 conn = connect(
     host=DB_HOST,
@@ -33,7 +33,7 @@ def addUserToRadCheck(username: str, password: str) -> bool:
     print("[+] Adding new user to Radius Database...")
 
     try:
-        cursor.execute(transaction, {username: username, password: password})
+        cursor.execute(transaction, {"username": username, "password": password})
     except Error as e:
         print(f"[-] Error: {e}")
         return False
