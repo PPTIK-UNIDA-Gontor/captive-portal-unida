@@ -100,11 +100,7 @@ def callback():
                 username=username,
                 password=uniqueId,
                 destination="https://unida.gontor.ac.id",
-                linkLoginOnly=(
-                    session["link-login-only"]
-                    if session.get("link-login-only")
-                    else f"{RADIUS_SERVER}/login"
-                ),
+                linkLoginOnly=session["link-login-only"],
             )
         else:
             return render_template(
