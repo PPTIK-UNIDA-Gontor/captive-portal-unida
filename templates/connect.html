@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Connecting...</title>
+  </head>
+
+  <body>
+    <p>Connecting to Hotspot...</p>
+    <form action="{{ linkLoginOnly }}" method="POST" name="connect">
+      <input type="hidden" name="dst" value="{{ destination }}" />
+      <input type="hidden" name="popup" value="false" />
+      <input type="hidden" name="username" value="{{ username }}" />
+      <input type="hidden" name="password" value="{{ password }}" />
+    </form>
+
+    <script type="text/javascript">
+      // Automatically submit the form after 1.5 seconds
+      window.onload = function () {
+        window.setTimeout(function () {
+          docuent.connect.submit();
+        }, 1500);
+      };
+    </script>
+  </body>
+</html>

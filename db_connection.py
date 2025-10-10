@@ -1,0 +1,42 @@
+import os
+
+from dotenv import load_dotenv
+from pymysql import Error, connect
+
+load_dotenv()
+
+DB_HOST: str = os.getenv("DB_HOST")
+DB_PORT: str = os.getenv("DB_PORT")
+DB_USERNAME: str = os.getenv("DB_USERNAME")
+DB_PASSWORD: str = os.getenv("DB_PASSWORD")
+DB_DATABASE: str = os.getenv("DB_NAME")
+
+conn = connect(
+    host=DB_HOST,
+    port=int(DB_PORT),
+    user=DB_USERNAME,
+    password=DB_PASSWORD,
+    database=DB_DATABASE,
+)
+
+cursor = conn.cursor()
+
+
+def addUserToRadCheck(username: str, password: str) -> bool:
+    """
+    Add new user from SSO Callback to Radius Database
+    for authentication Purpose
+    """
+
+    transaction = f"INSERT INTO radcheck (username, attribute, op, value) VALUES (%(username)s, 'Cleartext-Password', ':=', %(password)s)"
+
+    print("[+] Adding new user to Radius Database...")
+
+    try:
+        cursor.execute(transaction, {username: username, password: password})
+    except Error as e:
+        print(f"[-] Error: {e}")
+        return False
+
+    print("[+] User added to Radius Database")
+    return True
