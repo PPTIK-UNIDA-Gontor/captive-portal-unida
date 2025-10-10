@@ -34,9 +34,15 @@ def addUserToRadCheck(username: str, password: str) -> bool:
 
     try:
         cursor.execute(transaction, {"username": username, "password": password})
+        print("[+] User added to Radius Database")
+
+        conn.commit()
+        cursor.close()
+        conn.close()
+        return True
     except Error as e:
         print(f"[-] Error: {e}")
-        return False
 
-    print("[+] User added to Radius Database")
-    return True
+        cursor.close()
+        conn.close()
+        return False
