@@ -95,6 +95,11 @@ def callback():
         isAddedToRadCheck: bool = addUserToRadCheck(username, uniqueId)
 
         if isAddedToRadCheck:
+
+            # Klo link login only nya kosong, berarti hotspot nya belum di setting
+            if not session["link-login-only"] or session["link-login-only"] == "":
+                return render_template("error.html", message="Hotspot Belum Di Setting")
+
             return render_template(
                 "connect.html",
                 username=username,
