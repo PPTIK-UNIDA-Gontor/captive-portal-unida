@@ -22,11 +22,39 @@ conn = connect(
 cursor = conn.cursor()
 
 
+def checkUserInRadCheck(username: str) -> bool:
+    transaction = f"SELECT username FROM radcheck WHERE username = %(username)s"
+
+    try:
+        cursor.execute(transaction, {"username": username})
+        user = cursor.fetchone()
+
+        if not user:
+            print("[!] User not found in Radius Database")
+            return False
+
+        print("[+] User found in Radius Database")
+
+        return True
+    except Error as e:
+        print(f"[-] Error: {e}")
+
+        return False
+
+
 def addUserToRadCheck(username: str, password: str) -> bool:
     """
     Add new user from SSO Callback to Radius Database
     for authentication Purpose
     """
+
+    isUserExist = checkUserInRadCheck(username)
+
+    if isUserExist:
+        print("[!] User already exist in Radius Database")
+        cursor.close()
+        conn.close()
+        return True
 
     transaction = f"INSERT INTO radcheck (username, attribute, op, value) VALUES (%(username)s, 'Cleartext-Password', ':=', %(password)s)"
 
