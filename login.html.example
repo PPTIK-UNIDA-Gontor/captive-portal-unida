@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+
+<head>
+  <title>Internet Hotspot UNIDA Gontor</title>
+</head>
+
+<body>
+  <p>Anda akan diarahkan ke halaman login...</p>
+  <form name="redirect_login" action="http://your.domain.com/auth/redirect" method="POST">
+    <input type="hidden" name="mac" value="$(mac)" />
+    <input type="hidden" name="ip" value="$(ip)" />
+    <input type="hidden" name="link-login-only" value="$(link-login-only)" />
+    <input type="hidden" name="error" value="$(error)" />
+    <input type="hidden" name="username" value="$(username)" />
+  </form>
+
+  <script>
+    document.redirect_login.submit();
+  </script>
+</body>
+
+</html>
