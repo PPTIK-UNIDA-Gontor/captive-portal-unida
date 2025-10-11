@@ -5,11 +5,11 @@ from pymysql import Error, connect
 
 load_dotenv()
 
-DB_HOST: str = os.getenv("DB_HOST")
-DB_PORT: str = os.getenv("DB_PORT")
-DB_USERNAME: str = os.getenv("DB_USERNAME")
-DB_PASSWORD: str = os.getenv("DB_PASSWORD")
-DB_DATABASE: str = os.getenv("DB_DATABASE")
+DB_HOST: str = os.getenv("DB_HOST", "127.0.0.1")
+DB_PORT: str | int = os.getenv("DB_PORT", 3306)
+DB_USERNAME: str = os.getenv("DB_USERNAME", "radius")
+DB_PASSWORD: str = os.getenv("DB_PASSWORD", "radius")
+DB_DATABASE: str = os.getenv("DB_DATABASE", "radius")
 
 conn = connect(
     host=DB_HOST,
@@ -39,6 +39,8 @@ def checkUserInRadCheck(username: str) -> bool:
     except Error as e:
         print(f"[-] Error: {e}")
 
+        cursor.close()
+        conn.close()
         return False
 
 
@@ -52,8 +54,6 @@ def addUserToRadCheck(username: str, password: str) -> bool:
 
     if isUserExist:
         print("[!] User already exist in Radius Database")
-        cursor.close()
-        conn.close()
         return True
 
     transaction = f"INSERT INTO radcheck (username, attribute, op, value) VALUES (%(username)s, 'Cleartext-Password', ':=', %(password)s)"
@@ -65,8 +65,6 @@ def addUserToRadCheck(username: str, password: str) -> bool:
         print("[+] User added to Radius Database")
 
         conn.commit()
-        cursor.close()
-        conn.close()
         return True
     except Error as e:
         print(f"[-] Error: {e}")
