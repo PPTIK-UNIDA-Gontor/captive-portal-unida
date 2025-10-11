@@ -100,7 +100,7 @@ def callback():
         userData = userResponse.json()
 
         username: str = userData["name"]
-        fullname: str = f"{userData["given_name"]} {userData["family_name"]}"
+        fullname: str = f"{userData['given_name']} {userData['family_name']}"
         email: str = userData["email"]
         uniqueId: str = userData["idnumber"]  # Ntar ini yang di jadiin Password
 
