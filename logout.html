@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hotspot UNIDA - Logout</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="static/css/tailwind.css" />
+</head>
+
+<body class="h-screen w-full overflow-hidden flex items-center justify-center relative bg-slate-900">
+  <div class="absolute inset-0 z-0 select-none">
+    <img src="static/images/UNIDA-HERO-shrinked.png" alt="Kampus Background"
+      class="w-full h-full object-cover grayscale-75 opacity-60" />
+
+    <div class="absolute inset-0 bg-linear-to-t from-slate-900/80 to-blue-400/20"></div>
+  </div>
+
+  <div class="relative z-10 w-full max-w-[400px] mx-4 animate-fade-in-up">
+    <div class="bg-white/95 backdrop-blur-xl rounded-2xl shadow-2xl shadow-black/20 p-8 border border-white/20">
+      <div class="flex justify-center mb-6">
+        <div class="p-3 bg-blue-100 rounded-2xl shadow-inner">
+          <svg xmlns="http://www.w3.org/2000/svg" class="size-10 text-blue-900" fill="#1c398e" viewBox="0 0 512 512">
+            <path
+              d="M256 512a256 256 0 1 0 0-512 256 256 0 1 0 0 512zM224 160a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zm-8 64l48 0c13.3 0 24 10.7 24 24l0 88 8 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-80 0c-13.3 0-24-10.7-24-24s10.7-24 24-24l24 0 0-64-24 0c-13.3 0-24-10.7-24-24s10.7-24 24-24z" />
+          </svg>
+        </div>
+      </div>
+
+      <div class="text-center mb-8">
+        <h1 class="text-2xl font-bold text-blue-900 tracking-tight">
+          You have been logged out
+        </h1>
+        <div class="px-3">
+          <table class="table-fixed w-full font-bold text-sm text-slate-500 mt-4">
+            <tbody>
+              <tr class="py-4">
+                <td class="text-left">IP Address</td>
+                <td class="text-right">$(ip)</td>
+              </tr>
+              <tr class="py-4">
+                <td class="text-left">Bytes in / out</td>
+                <td class="text-right">
+                  $(bytes-in-nice) B / $(bytes-out-nice) B
+                </td>
+              </tr>
+              <tr class="py-4">
+                <td class="text-left">Session Time</td>
+                <td class="text-right">$(uptime)</td>
+              </tr>
+              <tr class="py-4">
+                <td class="text-left">MAC Address</td>
+                <td class="text-right">$(mac)</td>
+              </tr>
+              <tr class="py-4">
+                <td class="text-left">Username</td>
+                <td class="text-right">$(username)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <a href="$(link-login)"
+        class="group w-full flex items-center justify-center gap-3 bg-blue-900 hover:bg-blue-700 text-white font-semibold py-3.5 mt-5 rounded-xl transition-all duration-300 transform active:scale-95 shadow-lg shadow-blue-900/20 cursor-pointer">
+        <span class="text-[15px]">Back to Login</span>
+
+        <svg xmlns="http://www.w3.org/2000/svg" class="size-5 transition-transform group-hover:translate-x-1"
+          fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+        </svg>
+      </a>
+
+      <div class="my-6 flex items-center gap-3">
+        <div class="h-px bg-slate-200 flex-1"></div>
+        <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Help</span>
+        <div class="h-px bg-slate-200 flex-1"></div>
+      </div>
+
+      <div class="text-center">
+        <a href="https://lapor.unida.gontor.ac.id"
+          class="text-sm text-slate-500 hover:text-unida-primary transition-colors inline-flex items-center gap-1">
+          <svg xmlns="http://www.w3.org/2000/svg" class="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          Trouble connecting?
+        </a>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
