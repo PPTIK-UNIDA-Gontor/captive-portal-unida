@@ -72,7 +72,7 @@ def login():
     isUserAvailable = checkUserInRadCheck(str(session.get("username")))
 
     if isUserLoggedIn and isUserAvailable:
-        return redirect(f"{session.get("link-status")}")
+        return redirect(f"{session.get('link-status')}")
 
     authUrl = f"{SSO_BASE_URL}/oauth/login?client_id={SSO_CLIENT_ID}&redirect_uri={SSO_REDIRECT_URI}&response_type=code&scope=read write&state={uuid4()}"
     return redirect(authUrl)
