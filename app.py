@@ -127,7 +127,11 @@ def callback():
                 not session.get("link-login-only")
                 or session.get("link-login-only") == ""
             ):
-                return render_template("error.html", message="Hotspot Belum Di Setting")
+                return render_template(
+                    "error.html",
+                    message="Hotspot Belum Di Setting",
+                    loginLinkOnly=session.get("link-login-only"),
+                )
 
             return render_template(
                 "connect.html",
@@ -138,7 +142,9 @@ def callback():
             )
         else:
             return render_template(
-                "error.html", message="Gagal menambahkan user ke Radius Database"
+                "error.html",
+                message="Gagal menambahkan user ke Radius Database",
+                loginLinkOnly=session.get("link-login-only"),
             )
 
     except requests.exceptions.RequestException as e:
