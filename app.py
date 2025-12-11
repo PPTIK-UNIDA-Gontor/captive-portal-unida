@@ -51,6 +51,8 @@ def redirect_login():
     linkStatus = request.form.get("link-status")
     error = request.form.get("error")
     username = request.form.get("username")
+    chapId = request.form.get("chap-id")
+    chapChallenge = request.form.get("chap-challenge")
     isLoggedIn = True if request.form.get("logged-in") == "yes" else False
 
     session["mac"] = macAddress
@@ -59,6 +61,8 @@ def redirect_login():
     session["link-status"] = linkStatus
     session["error"] = error
     session["username"] = username
+    session["chap-id"] = chapId
+    session["chap-challenge"] = chapChallenge
     session["logged-in"] = isLoggedIn
 
     return redirect("/auth/login")
@@ -139,6 +143,8 @@ def callback():
                 password=uniqueId,
                 destination=session.get("link-status"),
                 linkLoginOnly=session.get("link-login-only"),
+                chapId=session.get("chap-id"),
+                chapChallenge=session.get("chap-challenge"),
             )
         else:
             return render_template(

@@ -11,6 +11,19 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="{{ url_for('static', filename='css/tailwind.css') }}" />
+  <script type="text/javascript" src="{{ url_for('static', filename='js/md5.js') }}"></script>
+  <script type="text/javascript">
+    function doLogin() {
+      document.login.username.value = document.login.username.value;
+      document.login.password.value = hexMD5(
+        "{{ chapId }}" +
+        document.login.password.value +
+        "{{ chapChallenge }}",
+      );
+      document.login.submit();
+      return false;
+    }
+  </script>
 </head>
 
 <body class="h-screen w-full overflow-hidden flex items-center justify-center relative bg-slate-900">
@@ -22,7 +35,8 @@
   </div>
 
   <h3 class="text-3xl font-bold text-blue-300">Connecting to Hotspot...</h3>
-  <form action="{{ linkLoginOnly }}" method="POST" name="login">
+  <form action="{{ linkLoginOnly }}" method="POST" name="login" {% if chapId %} onsubmit="return doLogin();" {% endif
+    %}>
     <input type="hidden" name="dst" value="{{ destination }}" />
     <input type="hidden" name="popup" value="true" />
     <input type="hidden" name="username" value="{{ username }}" />
