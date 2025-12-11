@@ -1,27 +1,42 @@
 <!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Connecting...</title>
-  </head>
+<html lang="id">
 
-  <body>
-    <h1>Connecting to Hotspot...</h1>
-    <form action="{{ linkLoginOnly }}" method="POST" name="login">
-      <input type="hidden" name="dst" value="{{ destination }}" />
-      <input type="hidden" name="popup" value="false" />
-      <input type="hidden" name="username" value="{{ username }}" />
-      <input type="hidden" name="password" value="{{ password }}" />
-    </form>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login Hotspot UNIDA - SSO Redirect</title>
 
-    <script type="text/javascript">
-      // Automatically submit the form after 1.5 seconds
-      window.onload = function () {
-        window.setTimeout(function () {
-          document.login.submit();
-        }, 1500);
-      };
-    </script>
-  </body>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/tailwind.css') }}" />
+</head>
+
+<body class="h-screen w-full overflow-hidden flex items-center justify-center relative bg-slate-900">
+  <div class="absolute inset-0 z-0 select-none">
+    <img src="{{ url_for('static', filename='images/UNIDA-HERO-shrinked.png') }}" alt="Kampus Background"
+      class="w-full h-full object-cover grayscale-25 opacity-60" />
+
+    <div class="absolute inset-0 bg-linear-to-t from-slate-900/90 to-blue-900/20"></div>
+  </div>
+
+  <h3 class="text-3xl font-bold text-blue-300">Connecting to Hotspot...</h3>
+  <form action="{{ linkLoginOnly }}" method="POST" name="login">
+    <input type="hidden" name="dst" value="{{ destination }}" />
+    <input type="hidden" name="popup" value="true" />
+    <input type="hidden" name="username" value="{{ username }}" />
+    <input type="hidden" name="password" value="{{ password }}" />
+  </form>
+
+  <script type="text/javascript">
+    // Automatically submit the form after 1 seconds
+    window.onload = function () {
+      window.setTimeout(function () {
+        document.login.submit();
+      }, 1500);
+    };
+  </script>
+</body>
+
 </html>

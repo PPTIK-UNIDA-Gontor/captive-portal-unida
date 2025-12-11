@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login Hotspot UNIDA - SSO Redirect</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="static/css/tailwind.css" />
+  <meta http-equiv="refresh" content="1; url=$(link-status)" />
+</head>
+
+<body class="h-screen w-full overflow-hidden flex items-center justify-center relative bg-slate-900">
+  <div class="absolute inset-0 z-0 select-none">
+    <img src="static/images/UNIDA-HERO-shrinked.png" alt="Kampus Background"
+      class="w-full h-full object-cover grayscale-25 opacity-60" />
+
+    <div class="absolute inset-0 bg-linear-to-t from-slate-900/90 to-blue-900/20"></div>
+  </div>
+
+  <div class="absolute inset-0 flex flex-col items-center justify-center space-y-4">
+    <h3 class="text-3xl font-bold text-blue-300">
+      Redirecting to Status page...
+    </h3>
+    <p class="text-xl text-blue-50">
+      <a href="$(link-status)" class="text-blue-300 font-bold cursor-pointer">Click here</a>
+      if you are not redirected
+    </p>
+  </div>
+</body>
+
+</html>

@@ -1,5 +1,5 @@
 .env
 __pycache__
+node_modules
 flask_session
-login.html
-alogin.html
+venv

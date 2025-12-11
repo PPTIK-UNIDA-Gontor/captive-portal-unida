@@ -20,13 +20,22 @@ SSO_REDIRECT_URI = os.getenv(
     "SSO_REDIRECT_URI", "https://your_domain.com/auth/callback"
 )
 
+
 # App init
 app = Flask(__name__)
 app.secret_key = FLASK_SECRET
 
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
+app.config["TEMPLATES_AUTO_RELOAD"] = True
 Session(app)
+
+
+def before_request():
+    app.jinja_env.cache = {}
+
+
+app.before_request(before_request)
 
 
 @app.route("/", methods=["GET"])
@@ -39,6 +48,7 @@ def redirect_login():
     macAddress = request.form.get("mac")
     ipAddress = request.form.get("ip")
     loginLinkOnly = request.form.get("link-login-only")
+    linkStatus = request.form.get("link-status")
     error = request.form.get("error")
     username = request.form.get("username")
     isLoggedIn = True if request.form.get("logged-in") == "yes" else False
@@ -46,6 +56,7 @@ def redirect_login():
     session["mac"] = macAddress
     session["ip"] = ipAddress
     session["link-login-only"] = loginLinkOnly
+    session["link-status"] = linkStatus
     session["error"] = error
     session["username"] = username
     session["logged-in"] = isLoggedIn
@@ -61,7 +72,7 @@ def login():
     isUserAvailable = checkUserInRadCheck(str(session.get("username")))
 
     if isUserLoggedIn and isUserAvailable:
-        return render_template("success.html", username=str(session.get("username")))
+        return redirect(f"{session.get("link-status")}")
 
     authUrl = f"{SSO_BASE_URL}/oauth/login?client_id={SSO_CLIENT_ID}&redirect_uri={SSO_REDIRECT_URI}&response_type=code&scope=read write&state={uuid4()}"
     return redirect(authUrl)
@@ -122,7 +133,7 @@ def callback():
                 "connect.html",
                 username=username,
                 password=uniqueId,
-                destination="https://unida.gontor.ac.id",
+                destination=session.get("link-status"),
                 linkLoginOnly=session.get("link-login-only"),
             )
         else:
@@ -136,4 +147,5 @@ def callback():
 
 # Run app
 if __name__ == "__main__":
+    app.jinja_env.auto_reload = True
     app.run(host="0.0.0.0", port=5000, debug=True)
